@@ -35,6 +35,9 @@ if [ "$(id -u)" != "0" ]; then
     error "This script must be run as root"
 fi
 
+#Install dependencies
+sudo apt update && sudo apt install -y bash wget rsync mount util-linux squashfs-tools coreutils dpkg apt initramfs-tools grub-common grep sed tar pciutils mokutil cryptsetup
+
 # Check for required tools
 for cmd in wget rsync mount umount mktemp unsquashfs md5sum dpkg apt update-initramfs update-grub; do
     if ! command -v $cmd &> /dev/null; then
@@ -136,7 +139,7 @@ check_compatibility() {
     local arch=$(dpkg --print-architecture)
     if [ "$arch" != "amd64" ]; then
         warn "This script is designed for 64-bit systems. Your system is $arch. Proceeding anyway, but this might cause issues."
-    }
+    fi
     
     # Check if system is encrypted
     if grep -q "cryptroot" /proc/cmdline; then
@@ -297,7 +300,7 @@ verify_iso() {
         umount "$ISO_MOUNT" 2>/dev/null || true
         rm -f "$ISO_FILE" 2>/dev/null || true
         return 1
-    }
+    fi
     
     umount "$ISO_MOUNT" 2>/dev/null || true
     log "ISO verification passed."
@@ -472,7 +475,6 @@ cat > "$TEMP_DIR/rsync-exclude" << "EOF"
 /etc/mtab
 /etc/resolv.conf
 /root/debian-backup-*
-/home/*
 /var/lib/dpkg/status
 /var/lib/dpkg/available
 /var/log/*
@@ -517,25 +519,85 @@ else
     usermod -aG sudo,adm,audio,video,plugdev,netdev "$NEW_USER"
 fi
 
-# Copy desktop environment files if they exist
+# Enhanced KDE Plasma configuration
 if [ -d "$SQUASHFS_MOUNT/usr/share/plasma" ] || [ -d "$SQUASHFS_MOUNT/usr/share/kde" ]; then
     log "Setting up KDE Plasma environment..."
     
-    # Ensure KDE configuration directories exist
-    mkdir -p /home/$NEW_USER/.config
-    mkdir -p /home/$NEW_USER/.local/share
+    # 1. Copy system-wide KDE configurations
+    if [ -d "$SQUASHFS_MOUNT/etc/skel" ]; then
+        log "Copying system-wide KDE configurations..."
+        rsync -a "$SQUASHFS_MOUNT/etc/skel/." "/etc/skel/"
+    fi
     
-    # Copy user-specific KDE configurations if they exist
+    # 2. Copy user-specific configurations
+    log "Setting up user $NEW_USER's KDE environment..."
+    mkdir -p "/home/$NEW_USER/.config"
+    mkdir -p "/home/$NEW_USER/.local/share"
+    
     if [ -d "$SQUASHFS_MOUNT/etc/skel/.config" ]; then
-        cp -r "$SQUASHFS_MOUNT/etc/skel/.config/"* /home/$NEW_USER/.config/ 2>/dev/null || true
+        rsync -a "$SQUASHFS_MOUNT/etc/skel/.config/." "/home/$NEW_USER/.config/"
     fi
     
     if [ -d "$SQUASHFS_MOUNT/etc/skel/.local/share" ]; then
-        cp -r "$SQUASHFS_MOUNT/etc/skel/.local/share/"* /home/$NEW_USER/.local/share/ 2>/dev/null || true
+        rsync -a "$SQUASHFS_MOUNT/etc/skel/.local/share/." "/home/$NEW_USER/.local/share/"
     fi
     
-    # Fix permissions
-    chown -R $NEW_USER:$NEW_USER /home/$NEW_USER/
+    # 3. Copy global KDE settings
+    if [ -d "$SQUASHFS_MOUNT/usr/share/plasma" ]; then
+        log "Copying global Plasma settings..."
+        rsync -a "$SQUASHFS_MOUNT/usr/share/plasma/." "/usr/share/plasma/"
+    fi
+    
+    if [ -d "$SQUASHFS_MOUNT/usr/share/kde" ]; then
+        log "Copying KDE resources..."
+        rsync -a "$SQUASHFS_MOUNT/usr/share/kde/." "/usr/share/kde/"
+    fi
+    
+    # 4. Copy wallpapers and themes
+    if [ -d "$SQUASHFS_MOUNT/usr/share/wallpapers" ]; then
+        log "Copying wallpapers..."
+        rsync -a "$SQUASHFS_MOUNT/usr/share/wallpapers/." "/usr/share/wallpapers/"
+    fi
+    
+    if [ -d "$SQUASHFS_MOUNT/usr/share/themes" ]; then
+        log "Copying themes..."
+        rsync -a "$SQUASHFS_MOUNT/usr/share/themes/." "/usr/share/themes/"
+    fi
+    
+    # 5. Copy icons
+    if [ -d "$SQUASHFS_MOUNT/usr/share/icons" ]; then
+        log "Copying icons..."
+        rsync -a "$SQUASHFS_MOUNT/usr/share/icons/." "/usr/share/icons/"
+    fi
+    
+    # 6. Fix permissions
+    chown -R "$NEW_USER:$NEW_USER" "/home/$NEW_USER"
+    log "KDE Plasma environment setup completed."
+fi
+
+# Manually apply gLiTcH theme if lookandfeeltool isn't available
+if [ -f "/usr/share/plasma/look-and-feel/org.gLiTcH.desktop/contents/defaults" ]; then
+    log "Manually applying gLiTcH theme..."
+    
+    # Create plasma config file if it doesn't exist
+    PLASMA_CONFIG="/home/$NEW_USER/.config/plasmarc"
+    mkdir -p "/home/$NEW_USER/.config"
+    
+    cat > "$PLASMA_CONFIG" << EOF
+[Theme]
+name=org.gLiTcH.desktop
+EOF
+    
+    # Also set in kdeglobals
+    KDE_GLOBALS="/home/$NEW_USER/.config/kdeglobals"
+    if [ -f "$KDE_GLOBALS" ]; then
+        sed -i 's/^Name=.*/Name=org.gLiTcH.desktop/' "$KDE_GLOBALS"
+    else
+        echo "[KDE]" > "$KDE_GLOBALS"
+        echo "LookAndFeelPackage=org.gLiTcH.desktop" >> "$KDE_GLOBALS"
+    fi
+    
+    chown "$NEW_USER:$NEW_USER" "$PLASMA_CONFIG" "$KDE_GLOBALS"
 fi
 
 # Update boot configuration
