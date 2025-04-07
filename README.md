@@ -48,13 +48,6 @@ A powerful bash script to convert a running Debian system to gLiTcH Linux KDE v9
 - Minimum 8GB free disk space
 - Stable internet connection
 
-## Installation
-
-1. Download the script:
-```bash
-wget https://raw.githubusercontent.com/yourusername/glitch-conversion/main/gLiTcH-Conversion.sh
-```
-
 2. Make it executable:
 ```bash
 chmod +x gLiTcH-Conversion.sh
