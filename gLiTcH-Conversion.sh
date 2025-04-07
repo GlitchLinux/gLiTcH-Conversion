@@ -1,9 +1,15 @@
 
 #!/bin/bash
 
-# Enhanced Debian to gLiTcH Linux Converter
-# This script converts a running Debian installation to gLiTcH Linux KDE v9.0
-# WARNING: This script modifies system files and should be used with caution
+#############################################################################
+################ GLITCH LINUX - https://www.glitchlinux.wtf #################
+#############################################################################
+################ Enhanced Debian to gLiTcH Linux Convert!r###################
+# This script converts a running Debian installation to gLiTcH Linux v9.0 ###
+# WARNING: This script modifies system files and should be used with caution#
+#############################################################################
+################ GLITCH LINUX - https://www.glitchlinux.wtf #################
+#############################################################################
 
 set -e  # Exit immediately if a command exits with a non-zero status
 set -o pipefail  # Return value of a pipeline is the value of the last command to exit with non-zero status
@@ -407,9 +413,9 @@ echo -e "${GREEN}      |    |       |    ||\    \ |\     \  |    | |    |_____  
 echo -e "${GREEN}      |    |       |    | \\    \| \     \ |    | |    |\    \    /    /${NC}"        
 echo -e "${GREEN}      |    |       |    |  \|    \  \     ||    | |    | \    \  /    /${NC}"         
 echo -e "${GREEN}      |    |  ____ |    |   |     \  |    ||    | |    |  \____\/____/${NC}"          
-echo -e "${GREEN}      |    | |    ||    |   |      \ |    ||    | |    |  /    /\    \${NC}"          
-echo -e "${GREEN}      |    | |    ||    |   |    |\ \|    ||    | |    | /    /  \    \${NC}"         
-echo -e "${GREEN}      |____|/____/||____|   |____||\_____/||\___\_|____|/____/ /\ \____\${NC}"        
+echo -e "${GREEN}      |    | |    ||    |   |      \ |    ||    | |    |  /    /\    \ ${NC}"          
+echo -e "${GREEN}      |    | |    ||    |   |    |\ \|    ||    | |    | /    /  \    \ ${NC}"         
+echo -e "${GREEN}      |____|/____/||____|   |____||\_____/||\___\_|____|/____/ /\ \____\ ${NC}"        
 echo -e "${GREEN}      |    |     |||    |   |    |/ \|   ||| |    |    ||    |/  \|    |${NC}"        
 echo -e "${GREEN}      |____|_____|/|____|   |____|   |___|/ \|____|____||____|    |____|${NC}"        
 echo -e "${GREEN}        \(    )/     \(       \(       )/      \(   )/    \(        )/${NC}"          
@@ -739,9 +745,9 @@ echo -e "${GREEN}      |    |       |    ||\    \ |\     \  |    | |    |_____  
 echo -e "${GREEN}      |    |       |    | \\    \| \     \ |    | |    |\    \    /    /${NC}"        
 echo -e "${GREEN}      |    |       |    |  \|    \  \     ||    | |    | \    \  /    /${NC}"         
 echo -e "${GREEN}      |    |  ____ |    |   |     \  |    ||    | |    |  \____\/____/${NC}"          
-echo -e "${GREEN}      |    | |    ||    |   |      \ |    ||    | |    |  /    /\    \${NC}"          
-echo -e "${GREEN}      |    | |    ||    |   |    |\ \|    ||    | |    | /    /  \    \${NC}"         
-echo -e "${GREEN}      |____|/____/||____|   |____||\_____/||\___\_|____|/____/ /\ \____\${NC}"        
+echo -e "${GREEN}      |    | |    ||    |   |      \ |    ||    | |    |  /    /\    \ ${NC}"          
+echo -e "${GREEN}      |    | |    ||    |   |    |\ \|    ||    | |    | /    /  \    \ ${NC}"         
+echo -e "${GREEN}      |____|/____/||____|   |____||\_____/||\___\_|____|/____/ /\ \____\ ${NC}"        
 echo -e "${GREEN}      |    |     |||    |   |    |/ \|   ||| |    |    ||    |/  \|    |${NC}"        
 echo -e "${GREEN}      |____|_____|/|____|   |____|   |___|/ \|____|____||____|    |____|${NC}"        
 echo -e "${GREEN}        \(    )/     \(       \(       )/      \(   )/    \(        )/${NC}"          
