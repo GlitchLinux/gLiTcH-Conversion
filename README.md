@@ -30,7 +30,7 @@ A powerful bash script to convert a running Debian system to gLiTcH Linux KDE v9
 
 ## Features
 
-- Converts Debian to gLiTcH Linux KDE v9.0 with a single command
+- Converts any Debian to gLiTcH Linux KDE v9.0 with a single command
 - Comprehensive system backup before making changes
 - Handles package database migration
 - Preserves important system configurations
@@ -39,24 +39,6 @@ A powerful bash script to convert a running Debian system to gLiTcH Linux KDE v9
   - NVIDIA drivers
   - Secure Boot systems
 - Creates a recovery script for rollback
-- Beautiful ASCII art progress display
-
-## Requirements
-
-- A Debian-based system (Debian 10/11 recommended)
-- Root access
-- Minimum 8GB free disk space
-- Stable internet connection
-
-2. Make it executable:
-```bash
-chmod +x gLiTcH-Conversion.sh
-```
-
-3. Run as root:
-```bash
-sudo ./gLiTcH-Conversion.sh
-```
 
 ## Usage
 
