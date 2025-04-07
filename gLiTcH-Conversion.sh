@@ -35,8 +35,11 @@ if [ "$(id -u)" != "0" ]; then
     error "This script must be run as root"
 fi
 
+#Install "sudo" - required if its a fresh debian netinstall.
+apt update && apt install sudo
+
 #Install dependencies
-sudo apt update && sudo apt install -y bash wget rsync mount util-linux squashfs-tools coreutils dpkg apt initramfs-tools grub-common grep sed tar pciutils mokutil cryptsetup
+sudo apt install -y bash wget rsync mount util-linux squashfs-tools coreutils dpkg apt initramfs-tools grub-common grep sed tar pciutils mokutil cryptsetup
 
 # Check for required tools
 for cmd in wget rsync mount umount mktemp unsquashfs md5sum dpkg apt update-initramfs update-grub; do
