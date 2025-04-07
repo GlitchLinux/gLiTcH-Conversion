@@ -71,19 +71,6 @@ The script will:
 - Run on a system you can afford to lose
 - Have a recovery USB handy
 
-## Post-Installation
-
-After successful conversion:
-- A new user `x` with password `9880` will be created
-- Hostname will be changed to `gLiTcH`
-- The system will automatically run post-install fixes on first reboot
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
 ## Support
 
 For support, visit [gLiTcH Linux Website](https://www.glitchlinux.wtf)
-
-```
