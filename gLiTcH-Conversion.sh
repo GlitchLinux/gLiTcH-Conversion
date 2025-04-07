@@ -1,3 +1,4 @@
+
 #!/bin/bash
 
 # Enhanced Debian to gLiTcH Linux Converter
@@ -383,8 +384,11 @@ show_progress() {
 }
 
 # Start of main execution
-log "=== gLiTcH Linux KDE v9.0 Installation Script ==="
-log "Starting conversion from Debian to gLiTcH Linux..."
+#log "=== gLiTcH Linux KDE v9.0 Installation Script ==="
+#log "Starting conversion from Debian to gLiTcH Linux..."
+echo -e "${GREEN}  ${NC}"
+echo -e "${GREEN}  ${NC}"
+echo -e "${GREEN}  ${NC}"
 echo -e "${GREEN}  ${NC}"
 echo -e "${GREEN}      _____     ____         ____  _________________       _____    ____   ____${NC}"
 echo -e "${GREEN}  ___|\    \   |    |       |    |/                 \  ___|\    \  |    | |    |${NC}"
@@ -398,7 +402,6 @@ echo -e "${GREEN}| |   /____ / ||    |     |||    |   |\`   |          | |   /__
 echo -e "${GREEN} \|___|    | / |____|_____|/|____|   |____|           \|___|    | /|____| |____|${NC}"
 echo -e "${GREEN}   \( |____|/    \(    )/     \(       \(               \( |____|/   \(     )/${NC}"  
 echo -e "${GREEN}    '   )/        '    '       '        '                '   )/       '     '${NC}"   
-echo -e "${GREEN}        '                                                    '${NC}"                  
 echo -e "${GREEN}       ____         ____  _____   ______    ____   ____${NC}"                         
 echo -e "${GREEN}      |    |       |    ||\    \ |\     \  |    | |    |_____      _____${NC}"        
 echo -e "${GREEN}      |    |       |    | \\    \| \     \ |    | |    |\    \    /    /${NC}"        
@@ -418,9 +421,12 @@ echo -e "${GREEN}  ${NC}"
 
 
 # Display warning and get confirmation
+echo -e "${GREEN}  ${NC}"
 echo -e "${RED}WARNING: This script will convert your Debian installation to gLiTcH Linux.${NC}"
+echo -e "${GREEN}  ${NC}"
 echo "This is a potentially dangerous operation that could make your system unbootable."
 echo "Please ensure you have a backup of important data."
+echo -e "${GREEN}  ${NC}"
 read -p "Do you want to continue? (y/n): " confirm
 if [[ "$confirm" != "y" && "$confirm" != "Y" ]]; then
     log "Installation aborted by user."
